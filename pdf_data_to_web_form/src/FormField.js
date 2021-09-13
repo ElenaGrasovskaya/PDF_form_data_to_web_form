@@ -9,7 +9,7 @@ function FormField(props)
             top: props.fieldData.rect[1] + props.pageN*700,
             width: props.fieldData.rect[2],
             height: props.fieldData.rect[3],
-            border: 'solid 1px light-grey',
+            border: 'solid 2px #AAA',
             
          
         },
@@ -18,7 +18,9 @@ function FormField(props)
             left: props.fieldData.rect[0],
             top: props.fieldData.rect[1] -20 + props.pageN*700,
             width: props.fieldData.rect[2],
-            height: props.fieldData.rect[3]
+            height: props.fieldData.rect[3],
+            fontFamily: 'Helvetica'
+            
             
         }
       } 
