@@ -25,8 +25,8 @@ function FormField(props)
 
     return(
         <>
-            <label htmlFor = {props.fieldData.tooltipText} style={styles.label} key={props.fieldNumber.toString()}>{props.fieldData.tooltipText}</label> 
-            <input type = {props.fieldData.widgetType} style={styles.input} id={props.fieldData.tooltipText} key={props.fieldNumber.toString()} />
+            <label htmlFor = {props.fieldData.tooltipText} style={styles.label} key={(props.fieldNumber+10000).toString()}>{props.fieldData.tooltipText}</label> 
+            <input type = {props.fieldData.widgetType} style={styles.input} id={props.fieldData.tooltipText} key={(props.fieldNumber+20000).toString()} />
            
         </>
 
