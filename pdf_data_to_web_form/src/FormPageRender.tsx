@@ -1,10 +1,14 @@
 import "./App.css";
 import FormField from "./FormField";
-
-function FormPageRender(props) {
+interface SinglePageInfo {
+  pageData: any;
+  pageN: number;
+};
+function FormPageRender(props:SinglePageInfo) {
   console.log("The data is ready for render", props.pageData.pageId);
-
-  let footerStyle = {
+ 
+  
+  let footerStyle:React.CSSProperties = {
     position: "absolute",
     top: props.pageN * 800,
     left: 0,
@@ -17,7 +21,7 @@ function FormPageRender(props) {
         style={{ position: "absolute", top: 0, left: 0 }}
       />
       <form>
-        {props.pageData.annotations.map((item, index) => (
+        {props.pageData.annotations.map((item:any, index:number) => (
           <FormField
             fieldData={item}
             fieldNumber={index}
@@ -28,6 +32,6 @@ function FormPageRender(props) {
       </form>
       <img src={process.env.PUBLIC_URL + "footer.jpg"} style={footerStyle} />
     </>
-  );
-}
+  )
+};
 export default FormPageRender;

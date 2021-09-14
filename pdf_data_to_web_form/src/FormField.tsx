@@ -1,6 +1,20 @@
-function FormField(props) {
+import {Annotation} from './PageDataInterface';
+
+interface FormFieldProps
+{
+  fieldData: Annotation,
+  fieldNumber: number,
+  key: string,
+  pageN: number
+}
+
+function FormField(props:FormFieldProps) {
   console.log(props.fieldData);
-  const styles = {
+  interface PageDataStyles {
+    input: React.CSSProperties,
+    label: React.CSSProperties
+  }
+  const styles:PageDataStyles = {
     input: {
       position: "absolute",
       left: props.fieldData.rect[0],
