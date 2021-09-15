@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import FormPageRender from "./FormPageRender";
-import {PageData} from "./PageDataInterface";
+import { PageData } from "./PageDataInterface";
+import { PageStatusData } from "./DocumentDataInterface";
+import Loading from "./Loading";
 
-interface LoadPageDataProps {
-    pageID: string;
-    pageN: number;
-    key: string;
-}
 
-function LoadPageData(props:LoadPageDataProps) {
-  console.log("This is Page ID PROPS", props.pageID);
+function LoadPageData(props:any) {
+  const [PageData, setPageData] = useState<PageData|any>([]);
+  let onePageData:PageData|undefined;
+  console.log("Page Data Props", props);
+
+  const returnPageData:any = ((data:any) => {
+    setPageData(data);
+  })
+
+  
+
+
+  /*console.log("This is Page ID PROPS", props.pageID);
   const [data, setData] = useState<PageData|undefined>(undefined);
 
   const getData = () => {
@@ -41,7 +49,19 @@ function LoadPageData(props:LoadPageDataProps) {
         <FormPageRender pageData={data} pageN={props.pageN} />
       </div>
     );
-  }
+  }*/
+ for (let index = 0; index < props.docData.pages.length; index++) {
+   
+  return(
+    <>
+      <Loading path = {`pageInfo_${props.docData.pages[index].id}.json`}
+      sendDoc={returnPageData}/>
+      
+      <FormPageRender pageData={PageData} pageN={index}/>
+   
+
+    </>
+  )};
 }
 
 export default LoadPageData;

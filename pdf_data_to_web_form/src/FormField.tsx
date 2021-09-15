@@ -1,11 +1,14 @@
 import {Annotation} from './PageDataInterface';
+import {PageData} from "./PageDataInterface";
 
 interface FormFieldProps
 {
   fieldData: Annotation,
   fieldNumber: number,
   key: string,
-  pageN: number
+  pageN: number,
+  allData: PageData
+
 }
 
 function FormField(props:FormFieldProps) {
