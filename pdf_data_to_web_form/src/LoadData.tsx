@@ -2,13 +2,23 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import LoadPageData from "./LoadPageData";
 import { PageStatusData } from "./DocumentDataInterface";
+import {PageData} from "./PageDataInterface";
+import Loading from "./Loading";
 
 
 function LoadData() {
-  
-  const [data, setData] = useState<PageStatusData|undefined>(undefined);
-  const getData = () => {
-    fetch("status.json", {
+  let dataSource:string = "status.json";
+  const [DocData, setDocData] = useState<PageStatusData|undefined>(undefined);
+  let StatusData:PageStatusData;
+  let onePageData:PageData|undefined;
+  let allFormData:PageData[] = [];
+  const returnDocData:any = ((data:any) => {
+    setDocData(data);
+  });
+ 
+
+ /* const getDocData = (source:string) => {
+    fetch(source, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -18,19 +28,47 @@ function LoadData() {
         return response.json();
       })
       .then(function (myJson) {
-        setData(myJson);
+        setDocData(myJson);
       });
   };
   useEffect(() => {
-    getData();
+    getDocData(dataSource);
   }, []);
-  if (data === undefined) {
+  
+  if (DocData === undefined) {
     return <div>STILL LOADING</div>;
-  } else {
-    console.log("This is data from Status.json", data.pages);
-    return (
+  } 
+  else {
+
+    console.log("This is data from Status.json", DocData.pages);
+
+    for (let index:number = 0; index<DocData.pages.length; index++)
+   {
+      dataSource = `pageInfo_${DocData.pages[index]}.json`;
+      const getPageData = (source:string) => {
+        fetch(source, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (myJson) {
+            setPageData(myJson);
+          });
+      };
+      useEffect(() => {
+        getPageData(dataSource);
+      }, []);
+      console.log("HERE ARE OUR PAGES",PageData);
+
+    }
+  }
+   return (
       <>
-        {data.pages.map((page, index) => (
+        {DocData.pages.map((page, index) => (
           <LoadPageData
             pageID={page.id}
             pageN={index}
@@ -39,7 +77,22 @@ function LoadData() {
         ))}
       </>
     );
+   */ 
+    
+
+    
+    return (
+      <>
+        <Loading path={dataSource} sendDoc={returnDocData}/>
+        <LoadPageData docData = {DocData}/>
+
+               
+      </>
+    );
+   
+    
   }
-}
+ 
+
 
 export default LoadData;
