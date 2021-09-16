@@ -1,11 +1,14 @@
 import {Annotation} from './PageDataInterface';
+import {PageData} from "./PageDataInterface";
 
 interface FormFieldProps
 {
   fieldData: Annotation,
   fieldNumber: number,
   key: string,
-  pageN: number
+  pageN: number,
+  allData: PageData
+
 }
 
 function FormField(props:FormFieldProps) {
@@ -53,7 +56,8 @@ function FormField(props:FormFieldProps) {
       <label
         htmlFor={props.fieldData.tooltipText}
         style={styles.label}
-        key={(props.fieldNumber + 10000).toString()}
+        key={props.key}
+        
       >
         {props.fieldData.tooltipText}
       </label>
@@ -61,7 +65,9 @@ function FormField(props:FormFieldProps) {
         type={props.fieldData.widgetType}
         style={styles.input}
         id={props.fieldData.tooltipText}
-        key={(props.fieldNumber + 20000).toString()}
+        key={props.key}
+        value={""}
+        
       />
     </>
   );

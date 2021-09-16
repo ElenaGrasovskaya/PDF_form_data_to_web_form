@@ -1,5 +1,6 @@
 import "./App.css";
 import FormField from "./FormField";
+import {PageData} from "./PageDataInterface";
 interface SinglePageInfo {
   pageData: any;
   pageN: number;
@@ -15,22 +16,23 @@ function FormPageRender(props:SinglePageInfo) {
   };
 
   return (
-    <>
+    <><section key={props.pageData.id}>
       <img
         src={process.env.PUBLIC_URL + "logo.jpg"}
-        style={{ position: "absolute", top: 0, left: 0 }}
+        style={{ position: "absolute", top: 0, left: 0 }} alt={"header"}
       />
-      <form>
-        {props.pageData.annotations.map((item:any, index:number) => (
+      {props.pageData.annotations.map((item:any, index:number) => (
           <FormField
             fieldData={item}
             fieldNumber={index}
-            key={(index + 100 * props.pageN).toString()}
+            key={item.id}
             pageN={props.pageN}
+            allData={props.pageData}
           />
         ))}
-      </form>
-      <img src={process.env.PUBLIC_URL + "footer.jpg"} style={footerStyle} />
+      
+      <img src={process.env.PUBLIC_URL + "footer.jpg"} style={footerStyle} alt={"footer"} />
+      </section>
     </>
   )
 };
