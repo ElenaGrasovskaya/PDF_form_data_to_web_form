@@ -67,7 +67,7 @@ function FormField(props:FormFieldProps) {
         id={props.fieldData.tooltipText}
         key={props.key}
         value={""}
-        onSubmit=function(this.value)
+        
       />
     </>
   );
