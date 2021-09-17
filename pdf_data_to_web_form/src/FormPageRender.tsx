@@ -2,11 +2,11 @@ import "./App.css";
 import FormField from "./FormField";
 import {PageData} from "./PageDataInterface";
 interface SinglePageInfo {
-  pageData: any;
+  pageData: PageData;
   pageN: number;
 };
 function FormPageRender(props:SinglePageInfo) {
-  console.log("The data is ready for render", props.pageData.pageId);
+  console.log("The data is ready for render", props.pageData);
  
   
   let footerStyle:React.CSSProperties = {
@@ -16,7 +16,7 @@ function FormPageRender(props:SinglePageInfo) {
   };
 
   return (
-    <><section key={props.pageData.id}>
+    <><section key={props.pageData.pageId}>
       <img
         src={process.env.PUBLIC_URL + "logo.jpg"}
         style={{ position: "absolute", top: 0, left: 0 }} alt={"header"}

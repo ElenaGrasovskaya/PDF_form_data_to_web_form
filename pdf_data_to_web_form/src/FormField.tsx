@@ -1,5 +1,6 @@
 import {Annotation} from './PageDataInterface';
 import {PageData} from "./PageDataInterface";
+import {useState} from "react";
 
 interface FormFieldProps
 {
@@ -13,6 +14,11 @@ interface FormFieldProps
 
 function FormField(props:FormFieldProps) {
   console.log(props.fieldData);
+  const [fieldValue, setfieldValue] = useState<any>("");
+  const handleInput = (e:any) => setfieldValue(e.target.value);
+
+
+
   interface PageDataStyles {
     input: React.CSSProperties,
     label: React.CSSProperties
@@ -66,7 +72,8 @@ function FormField(props:FormFieldProps) {
         style={styles.input}
         id={props.fieldData.tooltipText}
         key={props.key}
-        value={""}
+        value={fieldValue}
+        onChange={handleInput}
         
       />
     </>
