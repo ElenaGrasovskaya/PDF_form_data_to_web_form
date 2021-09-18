@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import FormPageRender from "./FormPageRender";
 import PageStatusData from "./DocumentDataInterface";
 import PageData from "./PageDataInterface";
+import LoadedDataProcessing from "./LoadedDataProcessing";
 
-function Loading(props: { path: string; pageN: number; firstLoad?: boolean }) {
-  const [Data, setData] = useState< PageStatusData | PageData | undefined >(
-    undefined
+function Loading(props: { path: string; pageN: number }) {
+  const [Data, setData] = useState<PageStatusData | PageData | undefined | any>(
+    []
   );
   const [isLoaded, setIsLoaded] = useState(false);
   const getData = (source: string) => {
@@ -19,65 +19,29 @@ function Loading(props: { path: string; pageN: number; firstLoad?: boolean }) {
         return response.json();
       })
       .then(function (myJson) {
-        setIsLoaded(true);
         setData(myJson);
+        setIsLoaded(true);
       });
   };
   useEffect(() => {
     getData(props.path);
   }, []);
-  
-  return { Data, isLoaded };
 
-}
- 
-export default Loading;
+  console.log("Loading", Data);
 
-
-/* if(isLoaded&&props.firstLoad)
-  {
-    console.log("Loading data", Data);
-    return Data.pages.map((page: any, index: number) => (
-      <Loading path={`pageInfo_${page.id}.json`} pageN={index} firstLoad = {false} />
-    ));
-  }
-  else if(isLoaded&&!props.firstLoad)
-  {
+  if (isLoaded) {
     return (
-       <FormPageRender pageData={Data} pageN={props.pageN}/>
-    )
-
-  }
-
-  else
-  {
-    return (
-      <div>STILL LOADING</div>
-    )
-  }
-
-
-
-  }
-
-
-
-  /*if (Data === undefined) {
-    return <div>STILL LOADING</div>;
+      <>
+        <LoadedDataProcessing
+          data={Data}
+          loaded={isLoaded}
+          pageN={props.pageN}
+        ></LoadedDataProcessing>
+      </>
+    );
   } else {
-    if (Data.hasOwnProperty("status"))
-      return (
-        <>
-          <LoadPageData docData={Data} />
-          <div>LOADED</div>
-        </>
-      );
-    else
-      return (
-        <>
-          <FormPageRender pageData={Data} pageN={props.pageN} />
-          <div>LOADED</div>
-        </>
-      );
+    return <div>STILL LOADING</div>;
   }
-}*/
+}
+
+export default Loading;
