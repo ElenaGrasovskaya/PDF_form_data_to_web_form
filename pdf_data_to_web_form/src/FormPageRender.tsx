@@ -6,22 +6,26 @@ interface SinglePageInfo {
   pageN: number;
 }
 function FormPageRender(props: SinglePageInfo) {
+  
   console.log("The data is ready for render", props.pageData);
 
-  let footerStyle: React.CSSProperties = {
-    position: "absolute",
-    top: props.pageN * 800,
-    left: 0,
+  let backgroundImageStyle: React.CSSProperties = {
+      position:"absolute",
+      top: props.pageN*842,
+      left: "0",
+      width: "595px",
+      height: "100%",
+      backgroundRepeat: "no-repeat",
+      zIndex: 1,
+
+       backgroundImage:
+      `URL(${process.env.PUBLIC_URL}pagePng_${props.pageData.pageId}.png)`
   };
 
   return (
     <>
-      <section key={props.pageData.pageId}>
-        <img
-          src={process.env.PUBLIC_URL + "logo.jpg"}
-          style={{ position: "absolute", top: 0, left: 0 }}
-          alt={"header"}
-        />
+      <section style={backgroundImageStyle} key={props.pageData.pageId}>
+       
         {props.pageData.annotations.map((item: any, index: number) => (
           <FormField
             fieldData={item}
@@ -31,12 +35,6 @@ function FormPageRender(props: SinglePageInfo) {
             allData={props.pageData}
           />
         ))}
-
-        <img
-          src={process.env.PUBLIC_URL + "footer.jpg"}
-          style={footerStyle}
-          alt={"footer"}
-        />
       </section>
     </>
   );

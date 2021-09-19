@@ -27,17 +27,20 @@ function FormField(props:FormFieldProps) {
     input: {
       position: "absolute",
       left: props.fieldData.rect[0],
-      top: props.fieldData.rect[1] + props.pageN * 800, //this is needed to from next pages with 800px offset
-      width: props.fieldData.rect[2] - 2,
+      top: props.fieldData.rect[1],
+      width: props.fieldData.rect[2] ,
       height: props.fieldData.rect[3],
-      border: "solid 2px #AAA",
+      zIndex: 10,
+      border:"none",
+      opacity: 0.5
     },
     label: {
       position: "absolute",
       left: props.fieldData.rect[0],
-      top: props.fieldData.rect[1] - 20 + props.pageN * 800, //this is needed to from next pages with 800px offset
-      width: props.fieldData.rect[2] - 2,
+      top: props.fieldData.rect[1], 
+      width: props.fieldData.rect[2],
       height: props.fieldData.rect[3],
+      
       fontFamily: "Helvetica",
       display: "block",
     },
@@ -59,14 +62,7 @@ function FormField(props:FormFieldProps) {
 
   return (
     <>
-      <label
-        htmlFor={props.fieldData.tooltipText}
-        style={styles.label}
-        key={props.key}
-        
-      >
-        {props.fieldData.tooltipText}
-      </label>
+      
       <input
         type={props.fieldData.widgetType}
         style={styles.input}
@@ -81,3 +77,13 @@ function FormField(props:FormFieldProps) {
 }
 
 export default FormField;
+
+/*
+<label
+        htmlFor={props.fieldData.tooltipText}
+        style={styles.label}
+        key={props.key}
+        
+      >
+        {props.fieldData.tooltipText}
+      </label> */
