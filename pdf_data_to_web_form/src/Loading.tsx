@@ -3,7 +3,7 @@ import PageStatusData from "./DocumentDataInterface";
 import PageData from "./PageDataInterface";
 import LoadedDataProcessing from "./LoadedDataProcessing";
 
-function Loading(props: { path: string; pageN: number }) {
+function Loading(props: { path: string; pageN: number; prevData:PageStatusData|any }) {
   const [Data, setData] = useState<PageStatusData | PageData | undefined | any>(
     []
   );
@@ -36,6 +36,7 @@ function Loading(props: { path: string; pageN: number }) {
           data={Data}
           loaded={isLoaded}
           pageN={props.pageN}
+          prevData = {props.prevData}
         ></LoadedDataProcessing>
       </>
     );

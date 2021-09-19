@@ -12,8 +12,8 @@ function App() {
   return (
     <section className="App">
       <form>
-       <Loading path = {dataSource} pageN={0}/>
-        <input type="submit" className="SubmitButton" onSubmit = {getAllFormData} ></input>
+       <Loading path = {dataSource} pageN={0} prevData= {{}}/>
+        
       </form>
     </section>
   );

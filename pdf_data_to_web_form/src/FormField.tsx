@@ -9,16 +9,21 @@ interface FormFieldProps
   key: string,
   pageN: number,
   allData: PageData
+  callback?: any
 
 }
 
 function FormField(props:FormFieldProps) {
-  console.log(props.fieldData);
   const [fieldValue, setfieldValue] = useState<any>("");
-  const handleInput = (e:any) => setfieldValue(e.target.value);
 
-
-
+  const handleInput = (e:any) => {
+    setfieldValue(e.target.value);
+   
+   }
+   const finishedImputHandler = (e:any) => {
+    props.callback([e.target,fieldValue]);
+   };
+  
   interface PageDataStyles {
     input: React.CSSProperties,
     label: React.CSSProperties
@@ -45,20 +50,7 @@ function FormField(props:FormFieldProps) {
       display: "block",
     },
   };
-  if (typeof props.fieldData.tooltipText === "string") {
-    if (
-      props.fieldData.tooltipText.includes("Code_Row") ||
-      props.fieldData.tooltipText.includes("Product") ||
-      props.fieldData.tooltipText.includes("Unit") ||
-      props.fieldData.tooltipText.includes("Qty_Row_") ||
-      props.fieldData.tooltipText.includes("Total_Row") ||
-      props.fieldData.tooltipText.includes("Total_Subtotal")
-    ) {
-      styles.label.display = "none";
-    } else {
-      styles.label.display = "block";
-    }
-  }
+ 
 
   return (
     <>
@@ -69,9 +61,11 @@ function FormField(props:FormFieldProps) {
         id={props.fieldData.tooltipText}
         key={props.key}
         value={fieldValue}
-        onChange={handleInput}
+        onChange = {handleInput}
+        onBlur = {finishedImputHandler}
         
       />
+      
     </>
   );
 }
@@ -86,4 +80,20 @@ export default FormField;
         
       >
         {props.fieldData.tooltipText}
-      </label> */
+      </label> 
+      
+      
+       if (typeof props.fieldData.tooltipText === "string") {
+    if (
+      props.fieldData.tooltipText.includes("Code_Row") ||
+      props.fieldData.tooltipText.includes("Product") ||
+      props.fieldData.tooltipText.includes("Unit") ||
+      props.fieldData.tooltipText.includes("Qty_Row_") ||
+      props.fieldData.tooltipText.includes("Total_Row") ||
+      props.fieldData.tooltipText.includes("Total_Subtotal")
+    ) {
+      styles.label.display = "none";
+    } else {
+      styles.label.display = "block";
+    }
+  }*/
