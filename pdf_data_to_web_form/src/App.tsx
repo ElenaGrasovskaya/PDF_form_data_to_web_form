@@ -1,5 +1,5 @@
 import "./App.css";
-import Loading from "./Loading";
+import ViewerApi from "./ViewerApi";
 import {useState} from "react";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   return (
     <section className="App">
       <form>
-       <Loading path = {dataSource} pageN={0} prevData= {{}}/>
+       <ViewerApi path = {dataSource} pageN={0} prevData= {{}}/>
         
       </form>
     </section>

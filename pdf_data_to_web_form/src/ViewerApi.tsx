@@ -3,7 +3,7 @@ import PageStatusData from "./DocumentDataInterface";
 import PageData from "./PageDataInterface";
 import LoadedDataProcessing from "./LoadedDataProcessing";
 
-function Loading(props: { path: string; pageN: number; prevData:PageStatusData|any }) {
+function ViewerApi(props: { path: string; pageN: number; prevData:PageStatusData|any }) {
   const [Data, setData] = useState<PageStatusData | PageData | undefined | any>(
     []
   );
@@ -45,4 +45,4 @@ function Loading(props: { path: string; pageN: number; prevData:PageStatusData|a
   }
 }
 
-export default Loading;
+export default ViewerApi;
