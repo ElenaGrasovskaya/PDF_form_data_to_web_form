@@ -1,22 +1,25 @@
 import "./App.css";
-import ViewerApi from "./ViewerApi";
-import {useState} from "react";
+
+import DocumentLoad from "./DocumentLoad"
 
 function App() {
 
-  const [formData, setFormData] = useState<any>("");
-  const getAllFormData = (e:any) => {setFormData(e.target.value);}
   let dataSource: string = "status.json";  
-  
+  const getAllData = (event:any) =>
+  {
+    event.preventDefault();
+    console.log(event);
+  }
 
   return (
     <section className="App">
-      <form>
-       <ViewerApi path = {dataSource} pageN={0} prevData= {{}}/>
-        
+      <form onSubmit= {getAllData} >
+              <DocumentLoad path = {dataSource}></DocumentLoad>
+              <input type="submit"></input>
       </form>
     </section>
   );
 }
 
 export default App;
+

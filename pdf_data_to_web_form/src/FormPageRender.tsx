@@ -1,75 +1,48 @@
 import React from "react";
 import "./App.css";
 import FormField from "./FormField";
-import { PageData } from "./PageDataInterface";
-import { useState } from "react";
+import useFetch from "./hooks/useFetch";
 interface OwnProps {
-  pageData: PageData;
   pageN: number;
   pageStatus: any;
 }
+
 function FormPageRender(props: OwnProps) {
-  console.log("The data is ready for render", props.pageData, props.pageStatus);
-  const [formData, setFormData] = useState<any>("");
-  let AllFieldData: any = [];
+  console.log("The data is ready for render", props.pageStatus);
+  let path: string = `pageInfo_${props.pageStatus.id}.json`;
 
-  const getAllFormData = (e: any) => {
-    e.preventDefault();
-    setFormData(AllFieldData);
-    alert(AllFieldData);
-    console.log("AllFieldData", AllFieldData);
-    };
+  let { data, loading, error } = useFetch(path);
 
-  const formFieldCallback = (fieldData: any) => {
-    console.log("formFieldCallback",AllFieldData);
-    AllFieldData.push(fieldData);
-  };
+  console.log("NEW DATA", path, loading, error, data);
 
   let backgroundImageStyle: React.CSSProperties = {
     position: "absolute",
-    top: props.pageN * 842,
+    top: props.pageN * props.pageStatus.height,
     left: "0",
-    width: "595px",
+    width: props.pageStatus.width,
     height: "100%",
     backgroundRepeat: "no-repeat",
     zIndex: 1,
 
-    backgroundImage: `URL(${process.env.PUBLIC_URL}pagePng_${props.pageData.pageId}.png)`,
+    backgroundImage: `URL(${process.env.PUBLIC_URL}pagePng_${props.pageStatus.id}.png)`,
   };
 
-  let submitDisplay: React.CSSProperties = {
-    display: "none",
-    zIndex: 50,
-    position:"absolute",
-    top: 0,
-    left: 600
-  };
-
-  if (props.pageN === 0)
-    submitDisplay.display = "block";
-  else submitDisplay.display = "none";
-
-  return (
-    <>
-
-      <section style={backgroundImageStyle} key={props.pageData.pageId}>
-      <input
-        type="submit"
-        style={submitDisplay}
-        onSubmit={getAllFormData}
-      ></input>
-        {props.pageData.annotations.map((item: any, index: number) => (
-          <FormField
-            fieldData={item}
-            fieldNumber={index}
-            key={item.id}
-            pageN={props.pageN}
-            allData={props.pageData}
-            callback={formFieldCallback}
-          />
-        ))}
-      </section>
-    </>
-  );
+  if (data && !loading) {
+    return (
+      <>
+        <section style={backgroundImageStyle} key={data.pageId}>
+          {data.annotations.map((item: any, index: number) => (
+            <FormField
+              fieldData={item}
+              fieldNumber={index}
+              key={item.id}
+              pageN={props.pageN}
+              allData={data}
+            />
+          ))}
+        </section>
+      </>
+    );
+  } else return null;
 }
 export default FormPageRender;
